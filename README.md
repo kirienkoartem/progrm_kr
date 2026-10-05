@@ -10,7 +10,8 @@
 | Ф1. Ядро вычислений (`Integral.Core`) | ✅ готово |
 | Ф2. Материалы контрольной точки (`docs/kt/`) | ✅ готово |
 | Ф3. Каркас интерфейса (`Integral.App`) | ✅ готово |
-| Ф4–Ф8 | см. `PLAN.md` |
+| Ф4. HTML-отчёт и обработчики событий | ✅ готово (ветка `f4`) |
+| Ф5–Ф8 | см. `PLAN.md` |
 
 ## Структура
 
@@ -37,6 +38,7 @@ dotnet test                       # автотесты ядра
 sh tools/check_lines.sh           # лимит длины файла
 dotnet run --project src/Integral.Cli -- data/example.txt
 dotnet run --project src/Integral.Cli -- "x^2" 0 1 --method both --eps 1e-8
+dotnet run --project src/Integral.Cli -- data/example.txt --html отчёт.html   # HTML-отчёт
 ```
 
 ## Запуск оконного приложения

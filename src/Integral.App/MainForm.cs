@@ -27,6 +27,7 @@ namespace Integral.App
             InitializeComponent();
             Icon = IconFactory.AppIcon();
             Wire();
+            EnableFileDrop();
             UpdateCommands();
         }
 

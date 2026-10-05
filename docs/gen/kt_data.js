@@ -56,7 +56,7 @@ const constants = [
   ['Ui.ControlHeight', '20', 'int', 'Высота поля ввода, пикс. (методические указания, табл. 2.1)'],
   ['Ui.GapRelated', '5', 'int', 'Интервал между связанными элементами, пикс.'],
   ['Ui.GapUnrelated', '8', 'int', 'Интервал между несвязанными элементами, пикс.'],
-  ['PlotPanel.MaxNodesShown', '64', 'int', 'Наибольшее n, при котором на графике показываются узлы разбиения'],
+  ['PlotModel.MaxNodes', '64', 'int', 'Наибольшее n, при котором на графике показываются узлы разбиения'],
   ['TokenType', '12 значений', 'перечисление', 'Number, Variable, Constant, Function, Plus, Minus, Multiply, Divide, Power, LeftParen, RightParen, End'],
   ['Method', '2 значения', 'перечисление', 'Trapezoid (порядок 2), Simpson (порядок 4)'],
   ['MethodChoice', '3 значения', 'перечисление', 'Trapezoid, Simpson, Both'],

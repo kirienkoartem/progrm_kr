@@ -31,6 +31,7 @@ namespace Integral.App
             cmbMethod.SelectedIndexChanged += (s, e) => { if (MethodChanged != null) MethodChanged(this, EventArgs.Empty); };
             dgvSummary.SelectionChanged += (s, e) => ShowSteps();
             SetupColumns();
+            WatchInputs();
             Hint(txtFormula, "Формула подынтегральной функции f(x), например 20*sin(sqrt(x)*3)");
             Hint(txtLowerLimit, "Нижний предел интегрирования a");
             Hint(txtUpperLimit, "Верхний предел интегрирования b");
@@ -61,7 +62,7 @@ namespace Integral.App
         public Node Function { get { return _node; } }
         public IntegrationParams Params { get { return _params; } }
         public IList<IntegrationResult> Results { get { return _results; } }
-        public string Formula { get { return txtFormula.Text.Trim(); } }
+        public string Formula { get { return _task != null ? _task.Formula : txtFormula.Text.Trim(); } }
 
         /// <summary>Заполняет поля ввода из задачи (файл исходных данных).</summary>
         public void LoadTask(IntegrationTask t)
@@ -116,7 +117,7 @@ namespace Integral.App
 
         private void ClearResults()
         {
-            _results.Clear(); _node = null;
+            _results.Clear(); _node = null; _stale = false;
             dgvSummary.Rows.Clear(); dgvConvergence.Rows.Clear();
             lblWarning.Text = "";
         }
@@ -143,6 +144,7 @@ namespace Integral.App
             }
             finally { Cursor = Cursors.Default; }
             _node = node; _params = p; _results.Clear(); _results.AddRange(list);
+            Remember(task);
             ShowResults();
             IntegrationResult last = list[list.Count - 1];
             Report("Готово: " + MethodName(last.Method) + ", I = " + last.Value.ToString("G10", CultureInfo.CurrentCulture));

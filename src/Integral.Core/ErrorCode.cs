@@ -37,5 +37,6 @@ namespace Integral.Core
         FileDuplicateKey,
         FileMissingKey,
         FileBadValue,
+        FileBadFormula,
     }
 }

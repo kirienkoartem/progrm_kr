@@ -59,9 +59,22 @@ namespace Integral.Core
 
             res.H = (p.B - p.A) / res.N;
             res.Steps = steps;
+            ObserveOrder(res, steps, order);
             res.Evaluations = evals;
             res.ElapsedMs = sw.Elapsed.TotalMilliseconds;
             return res;
+        }
+
+        /// <summary>Фактический порядок: log2((I(n)−I(n/2)) / (I(2n)−I(n))) по трём последним шагам.</summary>
+        private static void ObserveOrder(IntegrationResult res, IList<ConvergenceStep> s, int order)
+        {
+            int k = s.Count;
+            if (k < 3) return;
+            double d1 = s[k - 2].Value - s[k - 3].Value;
+            double d2 = s[k - 1].Value - s[k - 2].Value;
+            if (d2 == 0 || d1 / d2 <= 0) return;
+            res.ObservedOrder = Math.Log(d1 / d2, 2);
+            res.OrderDegraded = res.ObservedOrder < 0.8 * order;
         }
 
         /// <summary>Составная формула трапеций: h·[(f0+fn)/2 + Σ fi].</summary>

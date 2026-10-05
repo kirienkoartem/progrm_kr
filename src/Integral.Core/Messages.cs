@@ -37,6 +37,7 @@ namespace Integral.Core
             { ErrorCode.FileDuplicateKey, "Строка {0}: ключ \"{1}\" указан повторно." },
             { ErrorCode.FileMissingKey, "Не задан обязательный ключ \"{0}\"." },
             { ErrorCode.FileBadValue, "Строка {0}: неверное значение ключа \"{1}\"." },
+            { ErrorCode.FileBadFormula, "Строка {0}: ошибка в формуле. {1}" },
         };
 
         /// <summary>Возвращает готовую фразу по коду и аргументам шаблона.</summary>

@@ -47,6 +47,35 @@ namespace Integral.Tests
         }
 
         [Fact]
+        public void ObservedOrder_SmoothFunction_MatchesTheory()
+        {
+            var s = Run("exp(-x^2)", 0, 2, Method.Simpson, 4, 1e-10);
+            Assert.InRange(s.ObservedOrder, 3.6, 4.4);
+            Assert.False(s.OrderDegraded);
+            var t = Run("exp(-x^2)", 0, 2, Method.Trapezoid, 4, 1e-8);
+            Assert.InRange(t.ObservedOrder, 1.8, 2.2);
+            Assert.False(t.OrderDegraded);
+        }
+
+        [Fact]
+        public void ObservedOrder_NonSmoothFunction_IsDegraded_AndWarns()
+        {
+            // √x у нуля: порядок сходимости около 1,5, оценка Рунге занижена.
+            var r = Run("20*sin(sqrt(x)*3)", 0, 10, Method.Simpson, 100, 1e-6);
+            Assert.InRange(r.ObservedOrder, 1.2, 1.8);
+            Assert.True(r.OrderDegraded);
+            Assert.True(Run("20*sin(sqrt(x)*3)", 0, 10, Method.Trapezoid, 100, 1e-5).OrderDegraded);
+        }
+
+        [Fact]
+        public void ObservedOrder_NotAvailable_ForFixedN()
+        {
+            var r = Run("x^2", 0, 1, Method.Simpson, 10);
+            Assert.True(double.IsNaN(r.ObservedOrder));
+            Assert.False(r.OrderDegraded);
+        }
+
+        [Fact]
         public void ConvergenceOrders_AreTwoAndFour()
         {
             double exact = 0.882081390762422;

@@ -53,6 +53,13 @@ namespace Integral.Core
         public double H { get; internal set; }
         /// <summary>Оценка погрешности по правилу Рунге (NaN, если не вычислялась).</summary>
         public double ErrorEstimate { get; internal set; } = double.NaN;
+        /// <summary>Фактический порядок сходимости по трём последним удвоениям (NaN, если шагов меньше трёх).</summary>
+        public double ObservedOrder { get; internal set; } = double.NaN;
+        /// <summary>
+        /// Фактический порядок заметно ниже теоретического (негладкая функция):
+        /// оценка погрешности по Рунге в этом случае занижена.
+        /// </summary>
+        public bool OrderDegraded { get; internal set; }
         /// <summary>Число вычислений подынтегральной функции.</summary>
         public long Evaluations { get; internal set; }
         /// <summary>Время расчёта, мс.</summary>

@@ -14,6 +14,7 @@ namespace Integral.Core
         ExpectedLParen,
         UnexpectedToken,
         EmptyExpression,
+        TooDeep,
 
         // Вычисление значения функции
         DivByZero,

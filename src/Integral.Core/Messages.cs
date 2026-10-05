@@ -17,6 +17,7 @@ namespace Integral.Core
             { ErrorCode.ExpectedLParen, "Ожидается \"(\" после имени функции \"{0}\" в позиции {1}." },
             { ErrorCode.UnexpectedToken, "Недопустимая лексема в позиции {0}: ожидается знак операции или конец выражения." },
             { ErrorCode.EmptyExpression, "Формула не задана." },
+            { ErrorCode.TooDeep, "Формула слишком сложна: вложенность скобок и операций больше {0}." },
 
             { ErrorCode.DivByZero, "Деление на ноль при x = {0}." },
             { ErrorCode.LnDomain, "Логарифм определён только для аргумента > 0 (x = {0})." },

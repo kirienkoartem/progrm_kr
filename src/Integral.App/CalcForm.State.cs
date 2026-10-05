@@ -26,10 +26,18 @@ namespace Integral.App
             cmbMethod.SelectedIndexChanged += (s, e) => MarkStale();
         }
 
+        /// <summary>Подсказка в пустой области результатов.</summary>
+        private void ShowEmptyHint()
+        {
+            lblWarning.ForeColor = System.Drawing.SystemColors.GrayText;
+            lblWarning.Text = "Введите формулу и пределы, затем нажмите «Вычислить» (F5 или Enter).";
+        }
+
         private void MarkStale()
         {
             if (!HasResult || _stale) return;
             _stale = true;
+            lblWarning.ForeColor = Ui.Warning;
             lblWarning.Text = StaleText + (lblWarning.Text.Length > 0 ? " " + lblWarning.Text : "");
             Report("Данные изменены");
         }
@@ -39,6 +47,19 @@ namespace Integral.App
         {
             _task = task;
             _stale = false;
+        }
+
+        /// <summary>Раздел справки для поля, в котором стоит курсор (контекстная справка по F1).</summary>
+        public string HelpTopic
+        {
+            get
+            {
+                Control c = ActiveControl;
+                while (c is ContainerControl && ((ContainerControl)c).ActiveControl != null) c = ((ContainerControl)c).ActiveControl;
+                if (c == txtFormula || c == txtLowerLimit || c == txtUpperLimit) return HelpContent.Formula;
+                if (c == cmbMethod || c == txtN || c == txtEps || c == btnCalculate) return HelpContent.Methods;
+                return HelpContent.Windows;
+            }
         }
 
         /// <summary>Данные для HTML-отчёта по последнему расчёту.</summary>

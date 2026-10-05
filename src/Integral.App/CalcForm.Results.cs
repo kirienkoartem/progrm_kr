@@ -53,6 +53,7 @@ namespace Integral.App
             if (notConverged.Count > 0) warn.Append("Заданная точность не достигнута (" + string.Join(", ", notConverged) + "). ");
             if (degraded.Count > 0)
                 warn.Append("Функция негладкая (" + string.Join(", ", degraded) + "): порядок сходимости ниже теоретического, реальная погрешность больше оценки.");
+            lblWarning.ForeColor = Ui.Warning;
             lblWarning.Text = warn.ToString().Trim();
             dgvSummary.ClearSelection();
             if (dgvSummary.Rows.Count > 0) dgvSummary.Rows[dgvSummary.Rows.Count - 1].Selected = true;

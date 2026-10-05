@@ -10,7 +10,7 @@ namespace Integral.App
         /// <summary>Окно расчёта, из которого построен график.</summary>
         public CalcForm Source { get; private set; }
 
-        public GraphForm(CalcForm source, string title, string formula, Node f, double a, double b, int n, Method method)
+        public GraphForm(CalcForm source, string title, string formula, Node f, double a, double b, int n, Method method, double value)
         {
             Source = source;
             source.FormClosed += (s, e) => Close();
@@ -24,7 +24,8 @@ namespace Integral.App
             var caption = new Label
             {
                 Text = "f(x) = " + formula + "     x от " + System.Math.Min(a, b).ToString("G6") + " до " + System.Math.Max(a, b).ToString("G6") +
-                       (method == Method.Trapezoid ? "     трапеции" : "     Симпсон") + ", n = " + n,
+                       (method == Method.Trapezoid ? "     трапеции" : "     Симпсон") + ", n = " + n +
+                       "     I ≈ " + value.ToString("G10", System.Globalization.CultureInfo.CurrentCulture),
                 Dock = DockStyle.Top, Height = 28, TextAlign = ContentAlignment.MiddleLeft, Padding = new Padding(Ui.GapUnrelated, 0, 0, 0),
             };
             Controls.Add(new PlotPanel(f, a, b, n, method));

@@ -123,7 +123,7 @@ namespace Integral.App
             CalcForm calc = ActiveCalc;
             if (calc == null || !EnsureResults(calc, "построением графика")) return;
             IntegrationResult r = calc.Results[calc.Results.Count - 1];
-            var g = new GraphForm(calc, calc.Text, calc.Formula, calc.Function, calc.Params.A, calc.Params.B, r.N, r.Method);
+            var g = new GraphForm(calc, calc.Text, calc.Formula, calc.Function, calc.Params.A, calc.Params.B, r.N, r.Method, r.Value);
             PlaceChild(g, 760, 520);
         }
 

@@ -49,8 +49,8 @@ namespace Integral.App
 
             Bind(miNew, tbNew, () => NewCalc(null, null)); Bind(miOpen, tbOpen, OpenData); Bind(miSave, tbSave, SaveData);
             Bind(miExport, tbExport, ExportHtml); Bind(miRun, tbRun, delegate { if (ActiveCalc != null) ActiveCalc.Calculate(); });
-            Bind(miGraph, tbGraph, ShowGraph); Bind(miContents, tbHelp, () => ShowHelp(0));
-            Bind(miFileFormat, null, () => ShowHelp(4)); Bind(miAbout, tbAbout, ShowAbout); Bind(miExit, null, Close);
+            Bind(miGraph, tbGraph, ShowGraph); Bind(miContents, tbHelp, () => ShowHelp(ContextTopic()));
+            Bind(miFileFormat, null, () => ShowHelp(HelpContent.File)); Bind(miAbout, tbAbout, ShowAbout); Bind(miExit, null, Close);
             miCascade.Click += (s, e) => LayoutMdi(MdiLayout.Cascade);
             miTileHorizontal.Click += (s, e) => LayoutMdi(MdiLayout.TileHorizontal);
             miTileVertical.Click += (s, e) => LayoutMdi(MdiLayout.TileVertical);
@@ -107,7 +107,7 @@ namespace Integral.App
             else
             {
                 statusMethod.Text = "";
-                statusState.Text = MdiChildren.Length == 0 ? "Нет открытых расчётов" : statusState.Text;
+                statusState.Text = MdiChildren.Length == 0 ? "Нет открытых расчётов: Ctrl+N или Ctrl+O" : statusState.Text;
             }
         }
 
@@ -154,10 +154,18 @@ namespace Integral.App
             UpdateCommands();
         }
 
-        private void ShowHelp(int section)
+        /// <summary>Раздел справки для текущей ситуации: зависит от активного окна и поля ввода.</summary>
+        private string ContextTopic()
+        {
+            if (ActiveMdiChild is GraphForm) return HelpContent.Graph;
+            var calc = ActiveMdiChild as CalcForm;
+            return calc != null ? calc.HelpTopic : HelpContent.Start;
+        }
+
+        private void ShowHelp(string topic)
         {
             if (_help == null || _help.IsDisposed) { _help = new HelpForm(); _help.Show(this); }
-            _help.ShowSection(section);
+            _help.ShowTopic(topic);
             _help.Activate();
         }
 

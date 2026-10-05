@@ -32,6 +32,9 @@ namespace Integral.App
             dgvSummary.SelectionChanged += (s, e) => ShowSteps();
             SetupColumns();
             WatchInputs();
+            Ui.SetCue(txtFormula, "например, 20*sin(sqrt(x)*3)");
+            Ui.SetCue(txtEps, "не задана");
+            ShowEmptyHint();
             Hint(txtFormula, "Формула подынтегральной функции f(x), например 20*sin(sqrt(x)*3)");
             Hint(txtLowerLimit, "Нижний предел интегрирования a");
             Hint(txtUpperLimit, "Верхний предел интегрирования b");
@@ -119,7 +122,7 @@ namespace Integral.App
         {
             _results.Clear(); _node = null; _stale = false;
             dgvSummary.Rows.Clear(); dgvConvergence.Rows.Clear();
-            lblWarning.Text = "";
+            ShowEmptyHint();
         }
 
         /// <summary>Выполняет расчёт выбранным методом (или обоими) и выводит результаты.</summary>

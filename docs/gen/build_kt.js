@@ -78,14 +78,14 @@ kids.push(para('Общая блок-схема программы приведе
   'с формы; данные проверяются, формула разбирается в дерево выражения, выбирается метод и вычисляется интеграл. ' +
   'При ошибке на любом этапе выводится сообщение, и ввод повторяется. Результаты выводятся на форму и по желанию ' +
   'сохраняются в HTML-отчёт.'));
-kids.push(new Paragraph({ children: [new TextRun({ text: '@@FLOW1@@', size: 2 })] }));
+kids.push(new Paragraph({ children: [new TextRun({ text: '@@FLOW1@@', size: 2, font: cfg.font })] }));
 kids.push(figureCaption('Рисунок 2.1 – Общая блок-схема алгоритма программы'));
 kids.push(heading2('2.2 Алгоритм вычисления интеграла'));
 kids.push(para('Блок-схема функции Integrator.Integrate приведена на рисунке 2.2. Через Q(n) обозначена формула ' +
   'выбранного метода – (1.2) или (1.3). При ε = 0 вычисляется значение при заданном n и оценка погрешности по формуле ' +
   '(1.4). При ε > 0 число разбиений удваивается до достижения точности либо предела 2²⁰; каждое удвоение ' +
   'записывается в таблицу сходимости.'));
-kids.push(new Paragraph({ children: [new TextRun({ text: '@@FLOW2@@', size: 2 })] }));
+kids.push(new Paragraph({ children: [new TextRun({ text: '@@FLOW2@@', size: 2, font: cfg.font })] }));
 kids.push(figureCaption('Рисунок 2.2 – Блок-схема алгоритма вычисления интеграла'));
 
 kids.push(heading1('3 Переменные, константы и подпрограммы'));
@@ -171,12 +171,16 @@ for (const f of ['Lexer.cs', 'Parser.cs', 'Evaluator.cs', 'Integrator.cs']) {
 
 // ---------- сборка ----------
 const mkHeader = () => new Header({ children: [new Paragraph({
-  spacing: { line: 20, lineRule: 'exact', before: 0, after: 0 }, children: [new TextRun({ text: '@@FRAME@@', size: 2 })] })] });
-const tail = () => new Paragraph({ spacing: { line: 20, lineRule: 'exact', before: 0, after: 0 }, children: [new TextRun({ text: '', size: 2 })] });
+  spacing: { line: 20, lineRule: 'exact', before: 0, after: 0 }, children: [new TextRun({ text: '@@FRAME@@', size: 2, font: cfg.font })] })] });
+const tail = () => new Paragraph({ spacing: { line: 20, lineRule: 'exact', before: 0, after: 0 }, children: [new TextRun({ text: '', size: 2, font: cfg.font })] });
 
 const doc = new Document({
   creator: 'Кириенко А.М.', title: 'Материалы контрольной точки: интегрирование функций, заданных формулой',
-  styles: { default: { document: { run: { font: cfg.font, size: 28 } } } },
+  styles: {
+    default: { document: { run: { font: cfg.font, size: 28 } } },
+    // Явный стиль «Обычный»: без него Word и Google Docs подставляют Calibri
+    paragraphStyles: [{ id: 'Normal', name: 'Normal', quickFormat: true, run: { font: cfg.font, size: 28 } }],
+  },
   sections: [{
     properties: {
       titlePage: true,

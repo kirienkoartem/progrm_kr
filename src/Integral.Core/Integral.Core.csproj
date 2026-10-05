@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <!-- netstandard2.0 — для тестов и консоли; net48 — для оконного приложения (WinForms, .NET Framework 4.8) -->
+    <TargetFrameworks>netstandard2.0;net48</TargetFrameworks>
     <RootNamespace>Integral.Core</RootNamespace>
   </PropertyGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
 </Project>

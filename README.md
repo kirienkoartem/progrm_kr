@@ -9,7 +9,8 @@
 |---|---|
 | Ф1. Ядро вычислений (`Integral.Core`) | ✅ готово |
 | Ф2. Материалы контрольной точки (`docs/kt/`) | ✅ готово |
-| Ф3–Ф8 | см. `PLAN.md` |
+| Ф3. Каркас интерфейса (`Integral.App`) | ✅ готово |
+| Ф4–Ф8 | см. `PLAN.md` |
 
 ## Структура
 
@@ -17,6 +18,7 @@
 Integral.sln
 src/Integral.Core/   ядро: Lexer, Parser, Evaluator, Integrator, TaskFile, Messages
 src/Integral.Cli/    консольная обвязка (демонстрация ядра)
+src/Integral.App/    оконное приложение WinForms (MDI): MainForm, CalcForm, GraphForm, HelpForm, AboutForm
 tests/Integral.Tests/ автотесты xUnit
 data/example.txt     пример файла исходных данных
 tools/check_lines.sh проверка лимита 250 строк на файл
@@ -35,6 +37,11 @@ sh tools/check_lines.sh           # лимит длины файла
 dotnet run --project src/Integral.Cli -- data/example.txt
 dotnet run --project src/Integral.Cli -- "x^2" 0 1 --method both --eps 1e-8
 ```
+
+## Запуск оконного приложения
+
+Windows: открыть `Integral.sln` в Visual Studio 2022, запускаемый проект — `Integral.App`, F5.
+Сборка из командной строки: `dotnet build src/Integral.App` (результат — `src/Integral.App/bin/Debug/net48/Integral.exe`).
 
 ## Формат файла исходных данных
 

@@ -100,8 +100,7 @@ namespace Integral.Core
 
         private static double ReadNumber(string value, string key, int line)
         {
-            if (!double.TryParse(value.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out double d)
-                || double.IsNaN(d) || double.IsInfinity(d))
+            if (!NumberParser.TryParse(value, out double d))
                 throw new TaskFileException(ErrorCode.FileBadValue, line, line, key);
             return d;
         }

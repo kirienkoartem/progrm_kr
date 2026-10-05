@@ -3,7 +3,9 @@
 Запуск: python3 tools/make_icon.py   (нужен Pillow)
 Эскиз: скруглённый синий квадрат и белый знак интеграла, нарисованный кривой Безье.
 """
+import io
 import os
+import struct
 from PIL import Image, ImageDraw
 
 SIZES = [16, 20, 24, 32, 40, 48, 64, 128, 256]
@@ -59,11 +61,46 @@ def render(size):
     return img.resize((size, size), Image.LANCZOS)
 
 
+def bmp_entry(img):
+    """Кадр ICO в классическом формате BMP (32 бита BGRA, строки снизу вверх, маска AND)."""
+    w, h = img.size
+    px = img.load()
+    header = struct.pack('<IiiHHIIiiII', 40, w, h * 2, 1, 32, 0, 0, 0, 0, 0, 0)
+    rows = bytearray()
+    for y in range(h - 1, -1, -1):
+        for x in range(w):
+            r, g, b, a = px[x, y]
+            rows += bytes((b, g, r, a))
+    mask_row = ((w + 31) // 32) * 4
+    mask = bytes(mask_row * h)          # прозрачность берётся из альфа-канала
+    return header + bytes(rows) + mask
+
+
+def write_ico(path, images):
+    """ICO: размеры до 128 px — BMP (понимают все версии Windows и .NET Framework), 256 px — PNG (стандарт Windows Vista+)."""
+    blobs = []
+    for im in images:
+        if im.width >= 256:
+            buf = io.BytesIO()
+            im.save(buf, format='PNG')
+            blobs.append(buf.getvalue())
+        else:
+            blobs.append(bmp_entry(im))
+    out = struct.pack('<HHH', 0, 1, len(images))
+    offset = 6 + 16 * len(images)
+    for im, blob in zip(images, blobs):
+        dim = 0 if im.width >= 256 else im.width
+        out += struct.pack('<BBBBHHII', dim, dim, 0, 0, 1, 32, len(blob), offset)
+        offset += len(blob)
+    with open(path, 'wb') as f:
+        f.write(out + b''.join(blobs))
+
+
 def main():
     root = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
     out = os.path.join(root, 'src', 'Integral.App', 'app.ico')
     images = [render(s) for s in SIZES]
-    images[-1].save(out, format='ICO', sizes=[(s, s) for s in SIZES], append_images=images[:-1])
+    write_ico(out, images)
     # предпросмотр для проверки глазами
     prev = Image.new('RGBA', (sum(SIZES) + 20 * len(SIZES), 280), (240, 240, 240, 255))
     x = 10

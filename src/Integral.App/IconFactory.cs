@@ -6,7 +6,7 @@ namespace Integral.App
     /// <summary>Значки панели инструментов: рисуются кодом в едином стиле (линия 1,8 px, один акцентный цвет).</summary>
     internal static class IconFactory
     {
-        public enum Kind { New, Open, Save, Html, Calc, Graph, Help, About, App }
+        public enum Kind { New, Open, Save, Html, Calc, Graph, Help, About }
 
         public static Bitmap Create(Kind kind, int size)
         {
@@ -25,9 +25,21 @@ namespace Integral.App
             return bmp;
         }
 
+        private static Icon _appIcon;
+
+        /// <summary>Значок приложения: многоразмерный app.ico из ресурсов (tools/make_icon.py).</summary>
         public static Icon AppIcon()
         {
-            using (Bitmap bmp = Create(Kind.App, 32)) return Icon.FromHandle(bmp.GetHicon());
+            if (_appIcon == null)
+                using (System.IO.Stream st = typeof(IconFactory).Assembly.GetManifestResourceStream("app.ico"))
+                    _appIcon = new Icon(st);
+            return _appIcon;
+        }
+
+        /// <summary>Значок приложения нужного размера как изображение (для окна «О программе»).</summary>
+        public static Bitmap AppImage(int size)
+        {
+            using (var icon = new Icon(AppIcon(), size, size)) return icon.ToBitmap();
         }
 
         private static void Page(Graphics g, Pen pen, Brush soft)
@@ -78,11 +90,6 @@ namespace Integral.App
                 case Kind.About:
                     g.DrawEllipse(pen, 3, 3, 18, 18);
                     g.FillEllipse(fill, 11f, 6.8f, 2.2f, 2.2f); g.DrawLine(accent, 12, 11, 12, 17);
-                    break;
-                default:
-                    g.FillRectangle(new SolidBrush(Ui.Accent), 1, 1, 22, 22);
-                    using (var f = new Font("Times New Roman", 17f, FontStyle.Italic | FontStyle.Bold, GraphicsUnit.Pixel))
-                        g.DrawString("∫", f, Brushes.White, 6f, 0f);
                     break;
             }
         }

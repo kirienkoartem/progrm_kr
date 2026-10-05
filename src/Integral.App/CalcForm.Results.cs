@@ -19,9 +19,9 @@ namespace Integral.App
 
         private void SetupColumns()
         {
-            AddColumn(dgvSummary, "Метод", 12); AddColumn(dgvSummary, "Интеграл", 20); AddColumn(dgvSummary, "n", 10);
-            AddColumn(dgvSummary, "h", 12); AddColumn(dgvSummary, "Оценка погрешности", 16);
-            AddColumn(dgvSummary, "Порядок", 9); AddColumn(dgvSummary, "Вычислений f(x)", 14); AddColumn(dgvSummary, "Время, мс", 10);
+            AddColumn(dgvSummary, "Метод", 11); AddColumn(dgvSummary, "Интеграл", 19); AddColumn(dgvSummary, "n", 10);
+            AddColumn(dgvSummary, "h", 11); AddColumn(dgvSummary, "Погрешность", 14);
+            AddColumn(dgvSummary, "Порядок", 10); AddColumn(dgvSummary, "Вычислений f(x)", 14); AddColumn(dgvSummary, "Время, мс", 11);
             AddColumn(dgvConvergence, "n", 20); AddColumn(dgvConvergence, "Значение интеграла", 40); AddColumn(dgvConvergence, "Оценка погрешности", 40);
             foreach (DataGridViewColumn c in dgvSummary.Columns) c.SortMode = DataGridViewColumnSortMode.NotSortable;
             foreach (DataGridViewColumn c in dgvConvergence.Columns) c.SortMode = DataGridViewColumnSortMode.NotSortable;

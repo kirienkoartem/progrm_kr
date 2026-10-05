@@ -18,7 +18,7 @@ namespace Integral.App
             StartPosition = FormStartPosition.CenterParent;
             
 
-            var pic = new PictureBox { Image = IconFactory.Create(IconFactory.Kind.App, 48), Location = new Point(16, 16), Size = new Size(48, 48) };
+            var pic = new PictureBox { Image = IconFactory.AppImage(48), Location = new Point(16, 16), Size = new Size(48, 48) };
             var title = new Label { Text = AppInfo.Title, Font = new Font("Tahoma", 14f, FontStyle.Bold), Location = new Point(76, 16), Size = new Size(468, 28), ForeColor = Ui.Ink };
             var sub = new Label { Text = "Курсовая работа по дисциплине «Основы программирования»", Location = new Point(76, 44), Size = new Size(468, 20), ForeColor = SystemColors.GrayText };
             Controls.AddRange(new Control[] { pic, title, sub });

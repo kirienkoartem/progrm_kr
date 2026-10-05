@@ -45,7 +45,7 @@ namespace Integral.App
                 RowHeadersVisible = false, BackgroundColor = Color.White, BorderStyle = BorderStyle.FixedSingle,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect, MultiSelect = false,
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill, ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
-                EnableHeadersVisualStyles = true, ColumnHeadersHeight = 24, RowTemplate = { Height = 22 },
+                EnableHeadersVisualStyles = true, ColumnHeadersHeight = 24, ColumnHeadersDefaultCellStyle = { WrapMode = DataGridViewTriState.True }, RowTemplate = { Height = 22 },
             };
             return g;
         }
@@ -71,13 +71,13 @@ namespace Integral.App
 
             // --- «Метод и точность»
             grpMethod = new GroupBox { Text = "Метод и точность", Location = new Point(8, 124), Size = new Size(784, 84), Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right };
-            lblMethod = MakeLabel("Метод:", 8, 26, 52);
-            cmbMethod = new ComboBox { Location = new Point(64, 26), Size = new Size(170, 22), DropDownStyle = ComboBoxStyle.DropDownList, BackColor = Color.White };
+            lblMethod = MakeLabel("Метод:", 8, 26, 62);
+            cmbMethod = new ComboBox { Location = new Point(74, 26), Size = new Size(170, 22), DropDownStyle = ComboBoxStyle.DropDownList, BackColor = Color.White };
             cmbMethod.Items.AddRange(new object[] { "Трапеций", "Симпсона", "Оба метода" });
-            lblN = MakeLabel("n =", 250, 26, 32);
-            txtN = MakeText(286, 26, 80);
-            lblEps = MakeLabel("ε =", 382, 26, 28);
-            txtEps = MakeText(414, 26, 110);
+            lblN = MakeLabel("n =", 260, 26, 32);
+            txtN = MakeText(296, 26, 80);
+            lblEps = MakeLabel("ε =", 392, 26, 28);
+            txtEps = MakeText(424, 26, 110);
             btnCalculate = new Button { Text = "Вычислить", Location = new Point(640, 24), Size = new Size(136, Ui.ButtonHeight), Anchor = AnchorStyles.Top | AnchorStyles.Right, FlatStyle = FlatStyle.Standard, ForeColor = SystemColors.ControlText, UseVisualStyleBackColor = true };
             lblMethodHint = MakeLabel("ε не задана - расчёт при указанном n; ε задана - n подбирается автоматически (правило Рунге).", 8, 53, 768);
             lblMethodHint.ForeColor = SystemColors.GrayText; lblMethodHint.Font = new Font("Tahoma", 8.25f);
@@ -86,11 +86,11 @@ namespace Integral.App
 
             // --- «Результат»
             grpResult = new GroupBox { Text = "Результат", Location = new Point(8, 216), Size = new Size(784, 376), Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right };
-            dgvSummary = MakeGrid(); dgvSummary.Location = new Point(8, 26); dgvSummary.Size = new Size(768, 84);
+            dgvSummary = MakeGrid(); dgvSummary.Location = new Point(8, 26); dgvSummary.Size = new Size(768, 104); dgvSummary.ColumnHeadersHeight = 40;
             dgvSummary.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            lblWarning = new Label { Location = new Point(8, 116), Size = new Size(768, 36), ForeColor = Ui.Warning, Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right };
-            lblConvergence = MakeLabel("Таблица сходимости выбранного метода:", 8, 156, 500);
-            dgvConvergence = MakeGrid(); dgvConvergence.Location = new Point(8, 178); dgvConvergence.Size = new Size(768, 190);
+            lblWarning = new Label { Location = new Point(8, 136), Size = new Size(768, 36), ForeColor = Ui.Warning, Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right };
+            lblConvergence = MakeLabel("Таблица сходимости выбранного метода:", 8, 176, 500);
+            dgvConvergence = MakeGrid(); dgvConvergence.Location = new Point(8, 198); dgvConvergence.Size = new Size(768, 170);
             dgvConvergence.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             grpResult.Controls.AddRange(new Control[] { dgvSummary, lblWarning, lblConvergence, dgvConvergence });
 

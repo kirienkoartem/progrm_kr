@@ -22,6 +22,7 @@ src/Integral.App/    оконное приложение WinForms (MDI): MainFor
 tests/Integral.Tests/ автотесты xUnit
 data/example.txt     пример файла исходных данных
 tools/check_lines.sh проверка лимита 250 строк на файл
+tools/make_icon.py   генератор значка приложения app.ico (нужен Pillow)
 docs/kt/             материалы контрольной точки (.docx + .pdf-предпросмотр)
 docs/gen/            генератор документов Word: рамки, штампы, блок-схемы (`sh docs/gen/build.sh`)
 ```

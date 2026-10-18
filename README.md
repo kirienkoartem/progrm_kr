@@ -44,6 +44,12 @@ dotnet run --project src/Integral.Cli -- "x^2" 0 1 --method both --eps 1e-8
 Windows: открыть `Integral.sln` в Visual Studio 2022, запускаемый проект — `Integral.App`, F5.
 Сборка из командной строки: `dotnet build src/Integral.App` (результат — `src/Integral.App/bin/Debug/net48/Integral.exe`).
 
+## Установщик (Windows)
+
+`sh tools/make_installer.sh` собирает `dist/Integral_Setup_1.0.exe` (нужен NSIS). Установка для текущего пользователя, права администратора не нужны:
+программа попадает в `%LOCALAPPDATA%\Programs\Integral`, создаются ярлыки на рабочем столе и в меню «Пуск», запись в «Приложения и возможности».
+Установщик не подписан цифровой подписью, поэтому Windows SmartScreen может показать предупреждение: «Подробнее» → «Выполнить в любом случае».
+
 ## Формат файла исходных данных
 
 ```text

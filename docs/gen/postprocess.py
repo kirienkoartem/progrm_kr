@@ -56,6 +56,7 @@ def main(src, dst, toc=None, pages=None):
             xml, _ = replace_marker(xml, 'TREE', lambda i: flow_tree())
             if toc:
                 xml, _ = replace_marker(xml, 'TOC', lambda i: toc_xml(toc, pages or {}))
+            xml = re.sub(r'<w:highlightCs[^>]*/>', '', xml)  # лишний тег docx-js: нарушает схему Word
             data = xml.encode('utf-8')
         zout.writestr(item, data)
     zout.close()

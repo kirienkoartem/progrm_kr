@@ -64,3 +64,19 @@ def flow_integrate():
     c += [label('Да', 82, 63.5, 8), label('Нет', 56.5, 76, 9),
           label('Нет', 88, 102.5, 9), label('Да', 56.5, 115, 8)]
     return figure_paragraph(176, 148, c, 'Рисунок 2.2')
+
+
+def flow_tree():
+    """Рисунок 1.1 — дерево выражения 20*sin(sqrt(x)*3)."""
+    c = []
+    nodes = {  # имя: (текст, x центра, y верха)
+        'mul1': ('*', 60, 0), 'n20': ('20', 28, 18), 'sin': ('sin', 92, 18), 'mul2': ('*', 92, 36),
+        'sqrt': ('sqrt', 72, 54), 'n3': ('3', 112, 54), 'x': ('x', 72, 72),
+    }
+    edges = [('mul1', 'n20'), ('mul1', 'sin'), ('sin', 'mul2'), ('mul2', 'sqrt'), ('mul2', 'n3'), ('sqrt', 'x')]
+    w, h = 16, 10
+    for (px, py), (cx, cy) in [((nodes[a][1], nodes[a][2] + h), (nodes[b][1], nodes[b][2])) for a, b in edges]:
+        c.append(line(px, py, cx, cy))
+    for text, x, y in nodes.values():
+        c.append(shape('ellipse', text, x - w / 2, y, w, h, 12))
+    return figure_paragraph(130, 86, c, 'Рисунок 1.1')

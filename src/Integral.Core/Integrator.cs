@@ -38,9 +38,11 @@ namespace Integral.Core
 
             if (p.Eps <= 0)
             {
-                // Фиксированное n: оценка погрешности по Рунге, если удвоение не выходит за предел.
+                // Фиксированное n: оценка по Рунге, если удвоение не выходит за предел. Формула
+                // |Q(2n) − Q(n)| / (2^p − 1) оценивает ошибку уточнённого значения Q(2n); ошибка выводимого
+                // значения Q(n) в 2^p раз больше, поэтому умножаем (иначе оценка занижена в 4 или 16 раз).
                 if (n * 2 <= IntegrationParams.MaxN)
-                    res.ErrorEstimate = Math.Abs(compute(n * 2) - prev) / divisor;
+                    res.ErrorEstimate = (divisor + 1) * Math.Abs(compute(n * 2) - prev) / divisor;
             }
             else
             {

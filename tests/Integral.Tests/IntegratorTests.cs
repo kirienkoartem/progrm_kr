@@ -98,6 +98,26 @@ namespace Integral.Tests
             Assert.True(r.Evaluations > 0);
         }
 
+        [Theory]
+        [InlineData(Method.Trapezoid, 32)]
+        [InlineData(Method.Simpson, 8)]
+        public void FixedN_ErrorEstimate_MatchesTrueError(Method m, int n)
+        {
+            // Оценка должна относиться к выводимому значению Q(n): отличаться от истинной ошибки не более чем на 25 %.
+            const double exact = 0.882081390762422;
+            var r = Run("exp(-x^2)", 0, 2, m, n);
+            double trueErr = Math.Abs(r.Value - exact);
+            Assert.InRange(trueErr / r.ErrorEstimate, 0.8, 1.25);
+        }
+
+        [Fact]
+        public void Adaptive_ErrorEstimate_MatchesTrueError_ForSmoothFunction()
+        {
+            const double exact = 0.882081390762422;
+            var r = Run("exp(-x^2)", 0, 2, Method.Simpson, 4, 1e-8);
+            Assert.True(Math.Abs(r.Value - exact) <= r.ErrorEstimate * 1.5);
+        }
+
         [Fact]
         public void Simpson_OddN_IsAdjusted()
         {

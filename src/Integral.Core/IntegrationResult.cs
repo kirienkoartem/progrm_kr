@@ -17,12 +17,15 @@ namespace Integral.Core
         /// <summary>Максимальное число разбиений (2^20).</summary>
         public const int MaxN = 1 << 20;
 
+        /// <summary>Число разбиений по умолчанию (общее для окна, файла и консоли).</summary>
+        public const int DefaultN = 100;
+
         /// <summary>Нижний предел.</summary>
         public double A { get; set; }
         /// <summary>Верхний предел.</summary>
         public double B { get; set; }
         /// <summary>Число разбиений (начальное, если задана точность).</summary>
-        public int N { get; set; } = 100;
+        public int N { get; set; } = DefaultN;
         /// <summary>Требуемая точность; 0 — расчёт с фиксированным n.</summary>
         public double Eps { get; set; }
     }

@@ -1,0 +1,24 @@
+# файл	вид	ожидается	допуск	что проверяется
+ok01_x2.txt	ok	0.33333333333333333	1e-7	многочлен, оба метода
+ok02_cubic.txt	ok	3.75	1e-7	многочлен 3-й степени
+ok03_sin.txt	ok	2	1e-7	тригонометрия, число пи в пределах
+ok04_ln.txt	ok	1	1e-7	логарифм и константа e
+ok05_pi.txt	ok	3.14159265358979323	1e-7	дробь, результат равен пи
+ok06_gauss.txt	ok	0.88208139076242168	1e-7	интеграл Гаусса
+ok07_task.txt	ok	41.806922542615334	1e-4	функция из задания, негладкая у нуля
+ok08_reversed.txt	ok	-0.5	1e-12	a больше b
+ok09_zero_width.txt	ok	0	1e-12	a равно b
+ok10_simpson_odd.txt	ok	0.33333333333333333	1e-12	нечётное n у Симпсона
+ok11_fixed_n.txt	ok	2	1e-5	фиксированное n без точности
+err01_paren.txt	error	FileBadFormula	-	пропущена закрывающая скобка (внутри формулы)
+err02_unknown_func.txt	error	FileBadFormula	-	неизвестная функция (внутри формулы)
+err03_no_operator.txt	error	FileBadFormula	-	пропущен знак операции (внутри формулы)
+err04_bad_char.txt	error	FileBadFormula	-	недопустимый символ (внутри формулы)
+err05_div_zero.txt	error	DivByZero	-	деление на ноль в узле
+err06_ln_domain.txt	error	LnDomain	-	логарифм неположительного числа
+err07_empty.txt	error	FileEmpty	-	пустой файл
+err08_missing_b.txt	error	FileMissingKey	-	нет обязательного ключа b
+err09_unknown_key.txt	error	FileUnknownKey	-	неизвестный ключ
+err10_zero_n.txt	error	FileBadValue	-	n равно нулю
+err11_duplicate.txt	error	FileDuplicateKey	-	ключ указан дважды
+err12_bad_method.txt	error	FileBadValue	-	неизвестный метод

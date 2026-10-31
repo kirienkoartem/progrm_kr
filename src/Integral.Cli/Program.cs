@@ -12,6 +12,7 @@ namespace Integral.Cli
         private const string Usage =
             "Использование:\n" +
             "  integ_cli <файл.txt> [--html отчёт.html]\n" +
+            "  integ_cli --cases <папка с cases.tsv>   (протокол тестового примера)\n" +
             "  integ_cli \"<формула>\" <a> <b> [--method trapezoid|simpson|both] [--n N] [--eps E] [--html отчёт.html]\n";
 
         public static int Main(string[] args)
@@ -19,6 +20,12 @@ namespace Integral.Cli
             Console.OutputEncoding = Encoding.UTF8;
             try
             {
+                if (args.Length == 2 && args[0] == "--cases")
+                {
+                    var outcomes = CaseRunner.RunAll(args[1]);
+                    Console.Write(CaseRunner.Protocol(outcomes));
+                    return outcomes.TrueForAll(o => o.Passed) ? 0 : 1;
+                }
                 string? html = null;
                 int hi = Array.IndexOf(args, "--html");
                 if (hi >= 0 && hi + 1 < args.Length)

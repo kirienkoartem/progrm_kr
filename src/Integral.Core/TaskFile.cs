@@ -15,7 +15,7 @@ namespace Integral.Core
         public double A { get; set; }
         public double B { get; set; }
         public MethodChoice Method { get; set; } = MethodChoice.Simpson;
-        public int N { get; set; } = 100;
+        public int N { get; set; } = IntegrationParams.DefaultN;
         /// <summary>0 — точность не задана, расчёт с фиксированным n.</summary>
         public double Eps { get; set; }
     }

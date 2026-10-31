@@ -11,6 +11,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Integral.Core\Integral.Core.csproj" />
+    <ProjectReference Include="..\..\src\Integral.Cli\Integral.Cli.csproj" />
   </ItemGroup>
 
   <ItemGroup>

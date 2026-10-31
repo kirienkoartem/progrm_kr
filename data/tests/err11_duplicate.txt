@@ -1,0 +1,4 @@
+function = x
+function = x^2
+a = 0
+b = 1

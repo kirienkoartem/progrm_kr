@@ -1,0 +1,6 @@
+# a = b: интеграл равен нулю
+function = x
+a = 5
+b = 5
+method = both
+n = 10

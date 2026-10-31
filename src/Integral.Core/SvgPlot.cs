@@ -111,6 +111,9 @@ namespace Integral.Core
         }
 
         /// <summary>Ограничивает координату, чтобы огромные значения у полюса не ломали SVG.</summary>
-        private static double Clamp(double v) => v < -10000 ? -10000 : v > 10000 ? 10000 : v;
+        private static double Clamp(double v) => v < -CoordLimit ? -CoordLimit : v > CoordLimit ? CoordLimit : v;
+
+        /// <summary>Предел абсолютной величины координаты в SVG.</summary>
+        private const double CoordLimit = 10000;
     }
 }

@@ -1,0 +1,6 @@
+# a > b: интеграл меняет знак
+function = x
+a = 1
+b = 0
+method = both
+n = 10

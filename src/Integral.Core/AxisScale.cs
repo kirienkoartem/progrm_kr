@@ -18,13 +18,16 @@ namespace Integral.Core
             return nice * pow;
         }
 
+        /// <summary>Защита от бесконечного цикла: больше делений на оси не бывает.</summary>
+        private const int MaxTicks = 1000;
+
         /// <summary>Значения делений, лежащие внутри [min; max].</summary>
         public static IList<double> Ticks(double min, double max, int target)
         {
             var list = new List<double>();
             double step = NiceStep(min, max, target);
             double first = Math.Ceiling(min / step - 1e-9) * step;
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < MaxTicks; i++)
             {
                 double v = first + i * step;
                 if (v > max + step * 1e-9) break;

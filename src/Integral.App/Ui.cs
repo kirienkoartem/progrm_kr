@@ -37,6 +37,7 @@ namespace Integral.App
             EventHandler apply = (s, e) =>
             {
                 try { SendMessage(box.Handle, EM_SETCUEBANNER, (IntPtr)1, text); }
+                // Вне Windows user32.dll нет: подсказка просто не показывается, это не ошибка.
                 catch (Exception ex) when (ex is DllNotFoundException || ex is EntryPointNotFoundException) { }
             };
             if (box.IsHandleCreated) apply(box, EventArgs.Empty);

@@ -1,0 +1,5 @@
+function = ln(x)
+a = -1
+b = 1
+method = trapezoid
+n = 10

@@ -25,7 +25,7 @@ namespace Integral.App
             Text = title;
             Icon = IconFactory.AppIcon();
             cmbMethod.SelectedIndex = 1;
-            LoadTask(new IntegrationTask { Formula = "x^2", A = 0, B = 1, N = 100 });
+            LoadTask(new IntegrationTask { Formula = "x^2", A = 0, B = 1, N = IntegrationParams.DefaultN });
             btnCalculate.Click += (s, e) => Calculate();
             AcceptButton = btnCalculate;
             cmbMethod.SelectedIndexChanged += (s, e) => { if (MethodChanged != null) MethodChanged(this, EventArgs.Empty); };

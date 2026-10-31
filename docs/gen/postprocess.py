@@ -6,6 +6,7 @@ import zipfile
 sys.path.insert(0, __file__.rsplit('/', 1)[0] + '/lib')
 from ooxml import frame_paragraph  # noqa: E402
 from flows import flow_general, flow_integrate, flow_tree  # noqa: E402
+import flows2  # noqa: E402
 
 PARA = r'<w:p(?:\s[^>]*)?>(?:(?!</w:p>).)*?@@%s@@(?:(?!</w:p>).)*?</w:p>'
 
@@ -54,6 +55,10 @@ def main(src, dst, toc=None, pages=None):
             xml, _ = replace_marker(xml, 'FLOW1', lambda i: flow_general())
             xml, _ = replace_marker(xml, 'FLOW2', lambda i: flow_integrate())
             xml, _ = replace_marker(xml, 'TREE', lambda i: flow_tree())
+            for name in ('MODULES', 'LEXER', 'PEXPR', 'PBASE', 'EVAL', 'TRAP', 'SIMP'):
+                fn = {'MODULES': flows2.flow_modules, 'LEXER': flows2.flow_lexer, 'PEXPR': flows2.flow_parse_expr, 'PBASE': flows2.flow_parse_base,
+                      'EVAL': flows2.flow_eval, 'TRAP': flows2.flow_trapezoid, 'SIMP': flows2.flow_simpson}[name]
+                xml, _ = replace_marker(xml, name, lambda i, fn=fn: fn())
             if toc:
                 xml, _ = replace_marker(xml, 'TOC', lambda i: toc_xml(toc, pages or {}))
             xml = re.sub(r'<w:highlightCs[^>]*/>', '', xml)  # лишний тег docx-js: нарушает схему Word

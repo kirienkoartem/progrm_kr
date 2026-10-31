@@ -92,7 +92,7 @@ namespace Integral.App
             // --- строка состояния
             statusStrip = new StatusStrip { Font = Ui.BaseFont(), SizingGrip = true };
             statusHint = new ToolStripStatusLabel { Spring = true, TextAlign = ContentAlignment.MiddleLeft, Text = "Готово" };
-            statusState = new ToolStripStatusLabel { AutoSize = false, Width = 280, TextAlign = ContentAlignment.MiddleLeft, BorderSides = ToolStripStatusLabelBorderSides.Left, Text = "Нет открытых расчётов" };
+            statusState = new ToolStripStatusLabel { AutoSize = false, Width = 330, TextAlign = ContentAlignment.MiddleLeft, BorderSides = ToolStripStatusLabelBorderSides.Left, Text = "Нет открытых расчётов: Ctrl+N или Ctrl+O" };
             statusMethod = new ToolStripStatusLabel { AutoSize = false, Width = 170, TextAlign = ContentAlignment.MiddleLeft, BorderSides = ToolStripStatusLabelBorderSides.Left, Text = "" };
             statusStrip.Items.AddRange(new ToolStripItem[] { statusHint, statusState, statusMethod });
 

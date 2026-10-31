@@ -11,19 +11,28 @@ namespace Integral.Cli
     {
         private const string Usage =
             "Использование:\n" +
-            "  integ_cli <файл.txt>\n" +
-            "  integ_cli \"<формула>\" <a> <b> [--method trapezoid|simpson|both] [--n N] [--eps E]\n";
+            "  integ_cli <файл.txt> [--html отчёт.html]\n" +
+            "  integ_cli \"<формула>\" <a> <b> [--method trapezoid|simpson|both] [--n N] [--eps E] [--html отчёт.html]\n";
 
         public static int Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
             try
             {
+                string? html = null;
+                int hi = Array.IndexOf(args, "--html");
+                if (hi >= 0 && hi + 1 < args.Length)
+                {
+                    html = args[hi + 1];
+                    var rest = new System.Collections.Generic.List<string>(args);
+                    rest.RemoveRange(hi, 2);
+                    args = rest.ToArray();
+                }
                 IntegrationTask task = args.Length == 1 ? TaskFile.Parse(File.ReadAllText(args[0], Encoding.UTF8))
                                      : args.Length >= 3 ? FromArgs(args)
                                      : null!;
                 if (task == null) { Console.WriteLine(Usage); return 2; }
-                Run(task);
+                Run(task, html);
                 return 0;
             }
             catch (IntegralException ex)
@@ -57,14 +66,21 @@ namespace Integral.Cli
 
         private static double Number(string s) => double.Parse(s.Replace(',', '.'), CultureInfo.InvariantCulture);
 
-        private static void Run(IntegrationTask t)
+        private static void Run(IntegrationTask t, string? html)
         {
             Node f = Parser.Parse(t.Formula);
             var p = new IntegrationParams { A = t.A, B = t.B, N = t.N, Eps = t.Eps };
             Console.WriteLine("f(x) = " + t.Formula);
             Console.WriteLine("Пределы: [" + t.A.ToString(CultureInfo.InvariantCulture) + "; " + t.B.ToString(CultureInfo.InvariantCulture) + "]");
-            if (t.Method != MethodChoice.Simpson) Print(Integrator.Integrate(f, p, Method.Trapezoid));
-            if (t.Method != MethodChoice.Trapezoid) Print(Integrator.Integrate(f, p, Method.Simpson));
+            var results = new System.Collections.Generic.List<IntegrationResult>();
+            if (t.Method != MethodChoice.Simpson) results.Add(Integrator.Integrate(f, p, Method.Trapezoid));
+            if (t.Method != MethodChoice.Trapezoid) results.Add(Integrator.Integrate(f, p, Method.Simpson));
+            foreach (IntegrationResult r in results) Print(r);
+            if (html == null) return;
+            var input = new ReportInput { Formula = t.Formula, A = t.A, B = t.B, N = t.N, Eps = t.Eps, Method = t.Method, Function = f, Results = results };
+            File.WriteAllText(html, HtmlReport.Build(input), new UTF8Encoding(true));
+            Console.WriteLine();
+            Console.WriteLine("Отчёт сохранён: " + html);
         }
 
         private static void Print(IntegrationResult r)

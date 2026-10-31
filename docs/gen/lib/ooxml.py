@@ -53,6 +53,7 @@ PRST = {
     'decision': 'flowChartDecision',
     'io': 'flowChartInputOutput',
     'subprocess': 'flowChartPredefinedProcess',
+    'ellipse': 'ellipse',
 }
 
 

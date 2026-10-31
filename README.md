@@ -10,7 +10,9 @@
 | Ф1. Ядро вычислений (`Integral.Core`) | ✅ готово |
 | Ф2. Материалы контрольной точки (`docs/kt/`) | ✅ готово |
 | Ф3. Каркас интерфейса (`Integral.App`) | ✅ готово |
-| Ф4–Ф8 | см. `PLAN.md` |
+| Ф4. HTML-отчёт и обработчики событий | ✅ готово (ветка `f4`) |
+| Ф5. Справка, доводка интерфейса, сборка диска | ✅ готово (ветка `f5`) |
+| Ф6–Ф8 | см. `PLAN.md` |
 
 ## Структура
 
@@ -23,6 +25,8 @@ tests/Integral.Tests/ автотесты xUnit
 data/example.txt     пример файла исходных данных
 tools/check_lines.sh проверка лимита 250 строк на файл
 tools/make_icon.py   генератор значка приложения app.ico (нужен Pillow)
+tools/make_dist.sh   сборка содержимого CD и zip-архива в dist/
+build.bat            сборка программы на Windows одной командой
 docs/kt/             материалы контрольной точки (.docx + .pdf-предпросмотр)
 docs/gen/            генератор документов Word: рамки, штампы, блок-схемы (`sh docs/gen/build.sh`)
 ```
@@ -37,6 +41,7 @@ dotnet test                       # автотесты ядра
 sh tools/check_lines.sh           # лимит длины файла
 dotnet run --project src/Integral.Cli -- data/example.txt
 dotnet run --project src/Integral.Cli -- "x^2" 0 1 --method both --eps 1e-8
+dotnet run --project src/Integral.Cli -- data/example.txt --html отчёт.html   # HTML-отчёт
 ```
 
 ## Запуск оконного приложения

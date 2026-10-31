@@ -5,3 +5,5 @@ obj/
 dist/
 TestResults/
 node_modules/
+__pycache__/
+*.pyc

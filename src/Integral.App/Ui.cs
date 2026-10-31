@@ -1,4 +1,7 @@
+using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace Integral.App
 {
@@ -22,6 +25,22 @@ namespace Integral.App
             foreach (FontFamily f in FontFamily.Families)
                 if (string.Equals(f.Name, "Tahoma", System.StringComparison.OrdinalIgnoreCase)) return new Font(f, 10f);
             return new Font(SystemFonts.MessageBoxFont.FontFamily, 10f);
+        }
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, string lParam);
+        private const int EM_SETCUEBANNER = 0x1501;
+
+        /// <summary>Серая подсказка в пустом поле ввода (Windows). В других средах просто не показывается.</summary>
+        public static void SetCue(TextBox box, string text)
+        {
+            EventHandler apply = (s, e) =>
+            {
+                try { SendMessage(box.Handle, EM_SETCUEBANNER, (IntPtr)1, text); }
+                catch (Exception ex) when (ex is DllNotFoundException || ex is EntryPointNotFoundException) { }
+            };
+            if (box.IsHandleCreated) apply(box, EventArgs.Empty);
+            else box.HandleCreated += apply;
         }
     }
 

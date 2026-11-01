@@ -75,6 +75,14 @@ function codeBlock(lines) {
   });
 }
 
+/** Листинг для приложения: строка кода – абзац (в отличие от codeBlock, свободно переходит между листами). */
+function codeListing(lines) {
+  return lines.map((l) => new Paragraph({
+    spacing: { line: 228, lineRule: 'exact', before: 0, after: 0 }, indent: { firstLine: 0 },
+    children: [new TextRun({ text: l || ' ', font: 'Courier New', size: 16 })],
+  }));
+}
+
 /** Маркированный список через дефис (по ГОСТ 7.32 — перечисления с тире). */
 function dash(text) {
   return new Paragraph({
@@ -151,4 +159,4 @@ function codeLine(text) {
   });
 }
 
-module.exports = { t, para, heading1, heading2, heading3, headingPlain, hl, codeBlock, registry, counts, dash, formula, formulaLines, tableCaption, figureCaption, table, spacer, codeLine, TEXT_W };
+module.exports = { codeListing, t, para, heading1, heading2, heading3, headingPlain, hl, codeBlock, registry, counts, dash, formula, formulaLines, tableCaption, figureCaption, table, spacer, codeLine, TEXT_W };

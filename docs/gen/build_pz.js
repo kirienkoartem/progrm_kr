@@ -7,13 +7,15 @@ const B = require('./lib/blocks');
 const front = require('./pz/front');
 const part1 = require('./pz/part1');
 const part2 = require('./pz/part2');
+const part3 = require('./pz/part3');
 
 const [out, headingsOut, pagesIn] = process.argv.slice(2);
 const pages = pagesIn && fs.existsSync(pagesIn) ? JSON.parse(fs.readFileSync(pagesIn, 'utf8')) : { total: 0 };
 
 // --- содержание частей (их заголовки попадают в реестр в порядке следования)
 const body = [].concat(part1.introduction(), part1.section11(), part1.section12(),
-  part2.section21(), part2.section22(), part2.section23(), part2.section24());
+  part2.section21(), part2.section22(), part2.section23(), part2.section24(),
+  part3.section3(), part3.conclusions(), part3.sources(), part3.appendixA(), part3.appendixB(), part3.appendixC());
 
 /** Реферат: числа берутся из документа; пока записка не закончена, они подсвечиваются как неокончательные. */
 function abstract() {

@@ -50,13 +50,12 @@ namespace Integral.App
     {
         public const string Title = "Интегрирование функций";
         public const string University = "ФГБОУ ВО «Донбасский государственный технический университет»";
-        // TODO: уточнить у студента и заменить (см. PLAN.md, раздел 9)
-        public const string Faculty = "(факультет уточняется)";
-        public const string Department = "(кафедра уточняется)";
+        public const string Faculty = "Факультет автоматизации и электротехнических систем";
+        public const string Department = "Кафедра специализированных компьютерных систем";
         public const string Group = "БИ-25";
         public const string Student = "Кириенко Артём Максимович";
         public const string Topic = "Интегрирование функций, заданных формулой (вариант 7)";
-        public const string Supervisor = "Самойлов Д.В. (должность уточняется)";
+        public const string Supervisor = "Самойлов Д.В.";
         public const string Year = "2026";
         public const string Description =
             "Программа вычисляет определённый интеграл функции, заданной формулой, " +

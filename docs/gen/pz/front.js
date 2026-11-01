@@ -24,7 +24,7 @@ function titlePage() {
     line('на тему «Интегрирование функций, заданных формулой»', { after: 120 }),
     line('по дисциплине «Основы программирования»', { after: 1500 }),
     line('Разработал: студент гр. ' + cfg.group + ' ' + cfg.studentFull, { align: AlignmentType.LEFT, left: 3900, after: 240, line: 300 }),
-    line([run('Руководитель: ', { size: 28 }), run(cfg.supervisorTitle, { size: 28 }), run(' ' + cfg.supervisor, { size: 28 })], { align: AlignmentType.LEFT, left: 3900, line: 300 }),
+    line([run('Руководитель: ', { size: 28 }), run(cfg.supervisor, { size: 28 })], { align: AlignmentType.LEFT, left: 3900, line: 300 }),
     line(cfg.city + ' ' + cfg.year, { before: 1900 }),
   ];
 }

@@ -1,6 +1,8 @@
 // Общие блоки оформления по ГОСТ 7.32-2017: абзацы, заголовки, таблицы, подписи, листинги.
+const fs = require('fs');
+const path = require('path');
 const {
-  Paragraph, TextRun, AlignmentType, Table, TableRow, TableCell, WidthType, BorderStyle,
+  ImageRun, Paragraph, TextRun, AlignmentType, Table, TableRow, TableCell, WidthType, BorderStyle,
   TabStopType, VerticalAlign, TableLayoutType,
 } = require('docx');
 const cfg = require('../config');
@@ -72,6 +74,18 @@ function codeBlock(lines) {
       borders: { top: THIN, bottom: THIN, left: THIN, right: THIN },
       children: kids,
     })] })],
+  });
+}
+
+/** Рисунок из файла PNG (каталог docs/pz), по центру; ширина в мм, высота по пропорциям. */
+function image(file, widthMm) {
+  const data = fs.readFileSync(path.join(__dirname, '../../pz', file));
+  const w = data.readUInt32BE(16), h = data.readUInt32BE(20);
+  const px = Math.round(widthMm * 96 / 25.4);
+  return new Paragraph({
+    alignment: AlignmentType.CENTER, keepNext: true, spacing: { before: 120, after: 60 }, indent: { firstLine: 0 },
+    children: [new ImageRun({ type: 'png', data, transformation: { width: px, height: Math.round(px * h / w) },
+      altText: { title: file, description: file, name: file } })],
   });
 }
 
@@ -159,4 +173,4 @@ function codeLine(text) {
   });
 }
 
-module.exports = { codeListing, t, para, heading1, heading2, heading3, headingPlain, hl, codeBlock, registry, counts, dash, formula, formulaLines, tableCaption, figureCaption, table, spacer, codeLine, TEXT_W };
+module.exports = { image, codeListing, t, para, heading1, heading2, heading3, headingPlain, hl, codeBlock, registry, counts, dash, formula, formulaLines, tableCaption, figureCaption, table, spacer, codeLine, TEXT_W };

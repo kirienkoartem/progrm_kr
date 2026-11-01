@@ -26,7 +26,11 @@ git archive --format=tar HEAD Integral.sln Directory.Build.props build.bat src t
 # Текстовые файлы для Блокнота Windows: UTF-8 с BOM и переводы строк CRLF
 to_windows() { printf '\357\273\277' > "$2"; sed 's/$/\r/' "$1" >> "$2"; }
 to_windows "$ROOT/tools/dist_readme.txt" "$OUT/ПРОЧТИ.txt"
-to_windows "$ROOT/tools/dist_pz_note.txt" "$OUT/Пояснительная записка/Сюда положить ПЗ.txt"
+if [ -f "$ROOT/docs/pz/Пояснительная_записка.docx" ]; then
+  cp "$ROOT/docs/pz/Пояснительная_записка.docx" "$ROOT/docs/pz/Пояснительная_записка.pdf" "$OUT/Пояснительная записка/"
+else
+  to_windows "$ROOT/tools/dist_pz_note.txt" "$OUT/Пояснительная записка/Сюда положить ПЗ.txt"
+fi
 
 cd "$ROOT/dist"
 zip -qr "$NAME.zip" "$NAME"

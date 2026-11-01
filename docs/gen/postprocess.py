@@ -61,6 +61,8 @@ def main(src, dst, toc=None, pages=None):
                 xml, _ = replace_marker(xml, name, lambda i, fn=fn: fn())
             if toc:
                 xml, _ = replace_marker(xml, 'TOC', lambda i: toc_xml(toc, pages or {}))
+            # листинги и имена из кода не проверяются на орфографию (иначе Word подчёркивает их волнистыми линиями)
+            xml = re.sub(r'(<w:rFonts [^>]*Courier New[^>]*/>)', r'\1<w:noProof/>', xml)
             xml = re.sub(r'<w:highlightCs[^>]*/>', '', xml)  # лишний тег docx-js: нарушает схему Word
             data = xml.encode('utf-8')
         zout.writestr(item, data)

@@ -117,9 +117,15 @@ def polyline(points, arrow=True):
     return out
 
 
+# Масштаб рисунка на странице (содержимое группы сжимается вместе с рамкой): чтобы большие схемы не оставляли пустых мест
+SCALE = {'Блок-схема общая': 0.72, 'Блок-схема Integrate': 0.85, 'Рисунок 2.9': 0.72, 'Рисунок 2.11': 0.64, 'Рисунок 2.12': 0.64}
+
+
 def figure_paragraph(width_mm, height_mm, children, name):
     """Группа фигур в абзаце (inline), по центру."""
+    k = SCALE.get(name, 1.0)
     cx, cy = emu(width_mm), emu(height_mm)
+    ox, oy = int(cx * k), int(cy * k)
     return (
         '<w:p %s %s %s %s %s %s><w:pPr><w:keepNext/><w:spacing w:before="120" w:after="60" w:line="240" w:lineRule="auto"/>'
         '<w:jc w:val="center"/></w:pPr><w:r><mc:AlternateContent><mc:Choice Requires="wpg"><w:drawing>'
@@ -129,4 +135,4 @@ def figure_paragraph(width_mm, height_mm, children, name):
         '<wpg:wgp><wpg:cNvGrpSpPr/><wpg:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="%d" cy="%d"/>'
         '<a:chOff x="0" y="0"/><a:chExt cx="%d" cy="%d"/></a:xfrm></wpg:grpSpPr>%s</wpg:wgp>'
         '</a:graphicData></a:graphic></wp:inline></w:drawing></mc:Choice></mc:AlternateContent></w:r></w:p>'
-    ) % (NS_W, NS_WP, NS_A, NS_MC, NS_WPS, NS_WPG, cx, cy, _id(), escape(name), cx, cy, cx, cy, ''.join(children))
+    ) % (NS_W, NS_WP, NS_A, NS_MC, NS_WPS, NS_WPG, ox, oy, _id(), escape(name), ox, oy, cx, cy, ''.join(children))

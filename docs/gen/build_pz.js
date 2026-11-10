@@ -45,8 +45,8 @@ const mainChildren = [].concat(abstract(), contents, body);
 
 // порядок заголовков в содержании: сначала задание и реферат
 const toc = [
-  { level: 1, text: 'Задание и календарный план', find: 'ЗАДАНИЕ НА КУРСОВУЮ РАБОТУ' },
-  { level: 1, text: 'Реферат', find: 'РЕФЕРАТ' },
+  { level: 1, text: 'ЗАДАНИЕ И КАЛЕНДАРНЫЙ ПЛАН', find: 'ЗАДАНИЕ НА КУРСОВУЮ РАБОТУ' },
+  { level: 1, text: 'РЕФЕРАТ', find: 'РЕФЕРАТ' },
 ].concat(B.registry);
 fs.writeFileSync(headingsOut, JSON.stringify(toc, null, 1));
 

@@ -30,6 +30,7 @@ const registry = [];
 const counts = { tables: 0, figures: 0 };
 
 function heading1(text, o = {}) {
+  text = text.toUpperCase();
   registry.push({ level: 1, text, find: text });
   return new Paragraph({
     spacing: { line: 360, before: o.newPage ? 0 : 240, after: 120 }, indent: { firstLine: 709 }, keepNext: true,
@@ -37,6 +38,7 @@ function heading1(text, o = {}) {
   });
 }
 function heading2(text) {
+  text = text.toUpperCase();
   registry.push({ level: 2, text, find: text });
   return new Paragraph({
     spacing: { line: 360, before: 120, after: 120 }, indent: { firstLine: 709 }, keepNext: true,
@@ -44,6 +46,7 @@ function heading2(text) {
   });
 }
 function heading3(text) {
+  text = text.toUpperCase();
   return new Paragraph({
     spacing: { line: 360, before: 60, after: 60 }, indent: { firstLine: 709 }, keepNext: true,
     outlineLevel: 2, children: [t(text, { bold: true, italics: true })],
@@ -51,12 +54,20 @@ function heading3(text) {
 }
 /** Заголовок без номера (РЕФЕРАТ, СОДЕРЖАНИЕ, ВВЕДЕНИЕ…): по центру, прописными, с новой страницы. */
 function headingPlain(text, o = {}) {
-  if (o.toc) registry.push({ level: 1, text: o.toc, find: text.toUpperCase() });
+  if (o.toc) registry.push({ level: 1, text: o.toc.toUpperCase(), find: text.toUpperCase() });
   return new Paragraph({
     alignment: AlignmentType.CENTER, spacing: { line: 360, before: 0, after: 240 }, keepNext: true,
     pageBreakBefore: o.newPage !== false, outlineLevel: o.toc ? 0 : undefined, children: [t(text.toUpperCase(), { bold: true })],
   });
 }
+/** Краткий вывод в конце подраздела. */
+function conclusion(text) {
+  return new Paragraph({
+    alignment: AlignmentType.JUSTIFIED, spacing: { line: 360, before: 120, after: 60 }, indent: { firstLine: 709 },
+    children: [t('Вывод. ', { bold: true }), t(text)],
+  });
+}
+
 /** Заглушка с жёлтой подсветкой: данные, которые ещё нужно уточнить. */
 function hl(text, o = {}) { return new TextRun({ text, font: cfg.font, size: o.size || 28, bold: o.bold, highlight: 'yellow' }); }
 
@@ -173,4 +184,4 @@ function codeLine(text) {
   });
 }
 
-module.exports = { image, codeListing, t, para, heading1, heading2, heading3, headingPlain, hl, codeBlock, registry, counts, dash, formula, formulaLines, tableCaption, figureCaption, table, spacer, codeLine, TEXT_W };
+module.exports = { conclusion, image, codeListing, t, para, heading1, heading2, heading3, headingPlain, hl, codeBlock, registry, counts, dash, formula, formulaLines, tableCaption, figureCaption, table, spacer, codeLine, TEXT_W };

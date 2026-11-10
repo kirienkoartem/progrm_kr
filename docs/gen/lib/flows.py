@@ -33,7 +33,7 @@ def flow_general():
     c += [label('Нет', 90, 36.5, 9), label('Да', 61.5, 51, 8),
           label('Нет', 92, 114.5, 9), label('Да', 61.5, 129, 8),
           label('Нет', 90, 158.5, 9), label('Да', 61.5, 173, 8)]
-    return figure_paragraph(172, 205, c, 'Рисунок 2.1')
+    return figure_paragraph(172, 205, c, 'Блок-схема общая')
 
 
 def flow_integrate():
@@ -63,7 +63,7 @@ def flow_integrate():
     c.append(polyline([(137.5, 103), (137.5, 87), (95, 87)]))
     c += [label('Да', 82, 63.5, 8), label('Нет', 56.5, 76, 9),
           label('Нет', 88, 102.5, 9), label('Да', 56.5, 115, 8)]
-    return figure_paragraph(176, 148, c, 'Рисунок 2.2')
+    return figure_paragraph(176, 148, c, 'Блок-схема Integrate')
 
 
 def flow_tree():

@@ -50,8 +50,8 @@ namespace Integral.App
     {
         public const string Title = "Интегрирование функций";
         public const string University = "ФГБОУ ВО «Донбасский государственный технический университет»";
-        public const string Faculty = "Факультет автоматизации и электротехнических систем";
-        public const string Department = "Кафедра специализированных компьютерных систем";
+        public const string Faculty = "Факультет информационных технологий и автоматизации производственных процессов";
+        public const string Department = "Кафедра интеллектуальных систем и информационной безопасности";
         public const string Group = "БИ-25";
         public const string Student = "Кириенко Артём Максимович";
         public const string Topic = "Интегрирование функций, заданных формулой (вариант 7)";
